@@ -13,3 +13,22 @@ body {
   align-items: center;
   min-height: 100vh;
 }
+
+.card {
+  width: 400px;
+}
+
+.question_footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.footer_counter {
+  display: flex;
+  gap: 8px;
+}
+
+.mb-2 {
+  width: 100%;
+}
