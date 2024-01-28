@@ -1,7 +1,15 @@
 function onload() {
-  questionFooter();
-  renderQuestionAnswer();
-  renderResult();
+  start();
+  // questionFooter();
+  // renderQuestionAnswer();
+}
+
+function start() {
+  let CardBody = document.getElementById(`cardBody`);
+
+  CardBody.innerHTML = `
+  <div class="startDiv" onclick="startQuiz()">START</div>
+  `;
 }
 
 let n = 1;
@@ -50,14 +58,6 @@ function renderQuestionAnswer() {
         `;
 }
 
-function saveAnswer(selection) {
-  saveSelection.splice(0, 1);
-  saveSelection.push(selection);
-  let saveSelectedAnswer = JSON.stringify(selection);
-  localStorage.setItem("selection", saveSelectedAnswer);
-  changeColorOfSelectedDiv(selection);
-}
-
 function changeColorOfSelectedDiv(selection) {
   let lastCharSelection = +selection.slice(-1);
   if (lastCharSelection == "1") {
@@ -87,33 +87,57 @@ function removeColor(x, y, z) {
 function checkAnswer() {
   collectionOfQuestionSelections.push(saveSelection[0]);
 
-  // let rightAnswerNumber = +quizJson[i].right_answer;
-  // let lastCharSelection = +saveSelection[0].slice(-1);
-
   if (n == 8 && i == 7) {
     n = 1;
     i = 0;
     document.getElementById(`result`).classList.remove(`d-none`);
+    renderResult();
   } else {
     n++;
     i++;
   }
 
-  let saveCollection = JSON.stringify(collectionOfQuestionSelections);
-  localStorage.setItem("collectionOfQuestionSelections", saveCollection);
-
+  saveCollectedAnswers();
+  loadAnswerCollection();
   onload();
 }
 
 function renderResult() {
   let resultDiv = document.getElementById(`result`);
   resultDiv.innerHTML = ``;
-
-  resultDiv.innerHTML = `
-  <button id="btn-close" class="btn btn-primary" onclick="closeResultDiv()">Close</button>
-  `;
+  for (let j = 0; j < collectionOfQuestionSelections.length; j++) {
+    let finalSelection = collectionOfQuestionSelections[j];
+    resultDiv.innerHTML += `
+    <button id="btn-close" class="btn btn-primary" onclick="closeResultDiv()">Close</button>
+    <div>${finalSelection}</div>
+    `;
+  }
 }
 
 function closeResultDiv() {
   document.getElementById(`result`).classList.add(`d-none`);
+}
+
+// --------------------------------------------------------------------------------------------------------------
+
+function saveAnswer(selection) {
+  saveSelection.splice(0, 1);
+  saveSelection.push(selection);
+
+  let saveSelectedAnswer = JSON.stringify(selection);
+  localStorage.setItem("selection", saveSelectedAnswer);
+  changeColorOfSelectedDiv(selection);
+}
+
+function saveCollectedAnswers() {
+  let saveCollection = JSON.stringify(collectionOfQuestionSelections);
+  localStorage.setItem("collectionOfQuestionSelections", saveCollection);
+}
+
+function loadAnswerCollection() {
+  let saveCollection = localStorage.getItem(`collectionOfQuestionSelections`);
+
+  if (saveCollection) {
+    collectionOfQuestionSelections = JSON.parse(saveCollection);
+  }
 }
