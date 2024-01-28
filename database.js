@@ -33,19 +33,19 @@ let quizJson = [
     right_answer: "4",
   },
   {
-    question: "What is the correct HTML element for playing audio files?",
-    answer_1: "<audio>",
-    answer_2: "<mp3>",
-    answer_3: "<sound>",
-    answer_4: "<music>",
+    question: "What is the correct HTML element <?> for playing audio files?",
+    answer_1: "audio",
+    answer_2: "mp3",
+    answer_3: "sound",
+    answer_4: "music",
     right_answer: "1",
   },
   {
-    question: "What is the correct HTML element for playing video files??",
-    answer_1: "<media>>",
-    answer_2: "<video>>",
-    answer_3: "<movie>",
-    answer_4: "<cinema>",
+    question: "What is the correct HTML element <?> for playing video files??",
+    answer_1: "media",
+    answer_2: "video",
+    answer_3: "movie",
+    answer_4: "cinema",
     right_answer: "2",
   },
   {
@@ -65,3 +65,6 @@ let quizJson = [
     right_answer: "1",
   },
 ];
+
+let saveSelection = [];
+let collectionOfQuestionSelections = [];
