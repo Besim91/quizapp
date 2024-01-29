@@ -34,18 +34,18 @@ let quizJson = [
   },
   {
     question: "What is the correct HTML element for playing audio files?",
-    answer_1: "<audio>",
-    answer_2: "<mp3>",
-    answer_3: "<sound>",
-    answer_4: "<music>",
+    answer_1: "audio",
+    answer_2: "mp3",
+    answer_3: "sound",
+    answer_4: "music",
     right_answer: "1",
   },
   {
     question: "What is the correct HTML element for playing video files??",
-    answer_1: "<media>>",
-    answer_2: "<video>>",
-    answer_3: "<movie>",
-    answer_4: "<cinema>",
+    answer_1: "media>",
+    answer_2: "video",
+    answer_3: "movie",
+    answer_4: "cinema",
     right_answer: "2",
   },
   {
@@ -97,4 +97,22 @@ function answer(selection) {
     document.getElementById(rightAnswer).parentNode.classList.add(`bg-success`);
   }
   document.getElementById(`disable-btn`).disabled = false;
+}
+
+function nextQuestion() {
+  document.getElementById(`disable-btn`).disabled = true;
+  currentQuestion++;
+  showQuestion();
+  resetAnswerButton();
+}
+
+function resetAnswerButton() {
+  document.getElementById("answer_1").parentNode.classList.remove(`bg-success`);
+  document.getElementById("answer_1").parentNode.classList.remove(`bg-danger`);
+  document.getElementById("answer_2").parentNode.classList.remove(`bg-success`);
+  document.getElementById("answer_2").parentNode.classList.remove(`bg-danger`);
+  document.getElementById("answer_3").parentNode.classList.remove(`bg-success`);
+  document.getElementById("answer_3").parentNode.classList.remove(`bg-danger`);
+  document.getElementById("answer_4").parentNode.classList.remove(`bg-success`);
+  document.getElementById("answer_4").parentNode.classList.remove(`bg-danger`);
 }
