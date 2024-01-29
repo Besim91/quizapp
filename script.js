@@ -81,3 +81,16 @@ function showQuestion() {
   document.getElementById(`answer_3`).innerHTML = question["answer_3"];
   document.getElementById(`answer_4`).innerHTML = question["answer_4"];
 }
+
+function answer(selection) {
+  let question = quizJson[currentQuestion];
+  let lastNumberOfSelection = selection.slice(-1);
+
+  if (lastNumberOfSelection == question["right_answer"]) {
+    console.log(`Richtig`);
+    document.getElementById(selection).parentNode.classList.add(`bg-success`);
+  } else {
+    console.log(`Falsch`);
+    document.getElementById(selection).parentNode.classList.add(`bg-danger`);
+  }
+}

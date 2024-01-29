@@ -32,3 +32,15 @@ body {
 .mb-2 {
   width: 100%;
 }
+
+.quiz-answer-card {
+  cursor: pointer;
+}
+.quiz-answer-card:hover {
+  background-color: rgba(128, 128, 128, 0.2);
+}
+
+.bg-success,
+.bg-danger {
+  color: white!important;
+}
