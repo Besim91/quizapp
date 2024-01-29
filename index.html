@@ -16,9 +16,7 @@
     Direkt von Bootstrap aus dem server verwende ohne es zu installieren-->
 </head>
 
-<body onload="onload()">
-
-
+<body onload="init()">
 
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
@@ -26,17 +24,42 @@
         </div>
     </nav>
     <div class="container">
-
         <div class="card">
             <img src="./img/quiz.jpg" class="card-img-top" alt="...">
-            <div id="cardBody" class="card-body"></div>
-            <div id="questionFooter" class="question_footer"></div>
+
+            <div class="card-body">
+                <h5 class="card-title" id="question"></h5>
+
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_1">
+                        This is some text within a card body.
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_2">
+                        This is some text within a card body.
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_3">
+                        This is some text within a card body.
+                    </div>
+                </div>
+                <div class="card mb-2">
+                    <div class="card-body" id="answer_4">
+                        This is some text within a card body.
+                    </div>
+                </div>
+
+                <div class="question_footer">
+                    <div class="footer_counter">
+                        <b>1</b>of<b id="all-questions"></b>questions
+                    </div>
+                    <a href="#" class="btn btn-primary">Next</a>
+                </div>
+            </div>
         </div>
-
     </div>
-
-    <div id="result" class="resultDiv d-none"></div>
-
 </body>
 
 </html>

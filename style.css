@@ -12,7 +12,6 @@ body {
   justify-content: center;
   align-items: center;
   min-height: 100vh;
-  position: relative;
 }
 
 .card {
@@ -23,7 +22,6 @@ body {
   display: flex;
   justify-content: space-between;
   align-items: center;
-  padding: var(--bs-card-spacer-y) var(--bs-card-spacer-x);
 }
 
 .footer_counter {
@@ -33,63 +31,4 @@ body {
 
 .mb-2 {
   width: 100%;
-}
-
-#answerCard:hover {
-  background-color: rgba(128, 128, 128, 0.1);
-  cursor: pointer;
-}
-
-.changeColor {
-  background-color: rgba(72, 171, 224, 0.5) !important;
-  font-weight: bold;
-  box-shadow: 0 0 6px 2px #48abe0;
-}
-
-.resultDiv {
-  width: 600px;
-  height: 500px;
-  background-color: white;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-  border: 3px solid grey;
-}
-
-.d-none {
-  display: none;
-}
-
-#btn-close {
-  position: absolute;
-  top: 16px;
-  right: 16px;
-}
-
-.startDiv {
-  width: 100px;
-  height: 100px;
-  align-items: center;
-  font-size: 24px;
-  color: white;
-  font-weight: bold;
-  display: flex;
-  justify-content: center;
-  border-radius: 50px;
-  border: solid 1px black;
-  box-shadow: inset 0px 0px 5px 5px #015c01;
-  background-color: green;
-  margin-top: 26px;
-  cursor: pointer;
-}
-
-.startDiv:hover {
-  box-shadow: 0 0 10px 6px #03ac03;
-}
-
-.card-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
 }
