@@ -86,11 +86,15 @@ function answer(selection) {
   let question = quizJson[currentQuestion];
   let lastNumberOfSelection = selection.slice(-1);
 
+  let rightAnswer = `answer_${question.right_answer}`;
+
   if (lastNumberOfSelection == question["right_answer"]) {
     console.log(`Richtig`);
     document.getElementById(selection).parentNode.classList.add(`bg-success`);
   } else {
     console.log(`Falsch`);
     document.getElementById(selection).parentNode.classList.add(`bg-danger`);
+    document.getElementById(rightAnswer).parentNode.classList.add(`bg-success`);
   }
+  document.getElementById(`disable-btn`).disabled = false;
 }
