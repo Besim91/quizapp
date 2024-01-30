@@ -42,7 +42,7 @@ let quizJson = [
   },
   {
     question: "What is the correct HTML element for playing video files??",
-    answer_1: "media>",
+    answer_1: "media",
     answer_2: "video",
     answer_3: "movie",
     answer_4: "cinema",
@@ -67,6 +67,7 @@ let quizJson = [
 ];
 
 let currentQuestion = 0;
+let rightAnswerCounter = 0;
 
 function init() {
   document.getElementById(`all-questions`).innerHTML = quizJson.length;
@@ -74,28 +75,34 @@ function init() {
 }
 
 function showQuestion() {
-  let question = quizJson[currentQuestion];
-  document.getElementById(`current-question`).innerHTML = currentQuestion + 1;
-  document.getElementById(`question`).innerHTML = question["question"];
-  document.getElementById(`answer_1`).innerHTML = question["answer_1"];
-  document.getElementById(`answer_2`).innerHTML = question["answer_2"];
-  document.getElementById(`answer_3`).innerHTML = question["answer_3"];
-  document.getElementById(`answer_4`).innerHTML = question["answer_4"];
+  if (currentQuestion >= quizJson.length) {
+    document.getElementById(`card`).style = "display: none;";
+    document.getElementById(`end-container`).style = "";
+  } else {
+    let question = quizJson[currentQuestion];
+    document.getElementById(`current-question`).innerHTML = currentQuestion + 1;
+    document.getElementById(`question`).innerHTML = question["question"];
+    document.getElementById(`answer_1`).innerHTML = question["answer_1"];
+    document.getElementById(`answer_2`).innerHTML = question["answer_2"];
+    document.getElementById(`answer_3`).innerHTML = question["answer_3"];
+    document.getElementById(`answer_4`).innerHTML = question["answer_4"];
+  }
+  resetProgressBar();
 }
 
 function answer(selection) {
   let question = quizJson[currentQuestion];
   let lastNumberOfSelection = selection.slice(-1);
-
   let rightAnswer = `answer_${question.right_answer}`;
 
   if (lastNumberOfSelection == question["right_answer"]) {
-    console.log(`Richtig`);
     document.getElementById(selection).parentNode.classList.add(`bg-success`);
+    document.getElementById(`audioPowerUp`).play();
+    rightAnswerCounter++;
   } else {
-    console.log(`Falsch`);
     document.getElementById(selection).parentNode.classList.add(`bg-danger`);
     document.getElementById(rightAnswer).parentNode.classList.add(`bg-success`);
+    document.getElementById(`audioGameOver`).play();
   }
   document.getElementById(`disable-btn`).disabled = false;
 }
@@ -105,6 +112,12 @@ function nextQuestion() {
   currentQuestion++;
   showQuestion();
   resetAnswerButton();
+  showScore();
+}
+
+function resetProgressBar() {
+  let percent = ((currentQuestion + 1) / quizJson.length) * 100;
+  document.getElementById("progress-bar").style = `width: ${percent}%;`;
 }
 
 function resetAnswerButton() {
@@ -116,4 +129,41 @@ function resetAnswerButton() {
   document.getElementById("answer_3").parentNode.classList.remove(`bg-danger`);
   document.getElementById("answer_4").parentNode.classList.remove(`bg-success`);
   document.getElementById("answer_4").parentNode.classList.remove(`bg-danger`);
+}
+
+function showScore() {
+  let wrongAnswers = quizJson.length - rightAnswerCounter;
+  let totalScorePercent = (rightAnswerCounter * 100) / quizJson.length;
+
+  document.getElementById("score").innerHTML = `
+  <div class="right">Right answers: ${rightAnswerCounter}</div>
+  <div class="mb-4">Wrong answers: ${wrongAnswers}</div>
+  <h2 class="mb-2">Total Score</h2>
+  <div class="scoreRating">${totalScorePercent}</div>
+  <button onclick="restart()" type="button" class="btn btn-outline-success restart mt-4">Restart</button>`;
+  greetings(totalScorePercent);
+}
+
+function greetings(totalScorePercent) {
+  if (currentQuestion >= 8) {
+    if (totalScorePercent >= 70) {
+      document.getElementById(
+        `greetings`
+      ).innerHTML = `Congratulations, you did it!`;
+      document.getElementById(`audioWin`).play();
+      document.getElementById(`greetings`).classList.add(`text-success`);
+    } else {
+      document.getElementById(`greetings`).innerHTML = `You Lose!`;
+      document.getElementById(`greetings`).classList.add(`text-danger`);
+      document.getElementById(`audioLaugh`).play();
+    }
+  }
+}
+
+function restart() {
+  document.getElementById(`end-container`).style = "display: none;";
+  document.getElementById(`card`).style = "";
+  currentQuestion = 0;
+  rightAnswerCounter = 0;
+  init();
 }

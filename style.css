@@ -42,5 +42,36 @@ body {
 
 .bg-success,
 .bg-danger {
-  color: white!important;
+  color: white !important;
+}
+
+#end-container {
+  width: 600px;
+  height: 500px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 999;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.progress {
+  border-radius: unset !important;
+}
+
+.restart {
+  outline: solid 5px;
+  height: 100px;
+  width: 100px;
+  border-radius: 100% !important;
+  font-size: 30px;
+  font-weight: bold;
+}
+
+.scoreRating {
+  font-size: 50px;
 }

@@ -18,14 +18,28 @@
 
 <body onload="init()">
 
+
+
     <nav class="navbar bg-body-tertiary">
         <div class="container-fluid">
             <span class="navbar-brand mb-0 h1">Quizapp</span>
         </div>
     </nav>
+
+    <div id="end-container" class="card" style="display: none;">
+        <div id="greetings" class="fw-bold fs-1 mb-4"></div>
+        <div id="score"></div>
+        <div id="restart"></div>
+    </div>
+
     <div class="container">
-        <div class="card">
+        <div class="card" id="card" style="">
             <img src="./img/quiz.jpg" class="card-img-top" alt="...">
+
+            <div class="progress" role="progressbar" aria-label="Success example" aria-valuenow="25" aria-valuemin="0"
+                aria-valuemax="100">
+                <div id="progress-bar" class="progress-bar bg-success" style="width: 0%"></div>
+            </div>
 
             <div class="card-body">
                 <h5 class="card-title" id="question"></h5>
@@ -60,6 +74,19 @@
             </div>
         </div>
     </div>
+
+    <audio id="audioPowerUp">
+        <source src="./audio/correct.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audioGameOver">
+        <source src="./audio/negative.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audioLaugh">
+        <source src="./audio/laugh.mp3" type="audio/mp3">
+    </audio>
+    <audio id="audioWin">
+        <source src="./audio/win.mp3" type="audio/mp3">
+    </audio>
 </body>
 
 </html>
