@@ -68,6 +68,10 @@ let quizJson = [
 
 let currentQuestion = 0;
 let rightAnswerCounter = 0;
+const audioRight = new Audio("./audio/correct.mp3");
+const audioWrong = new Audio("./audio/negative.mp3");
+const audioWin = new Audio("./audio/win.mp3");
+const audioLose = new Audio("./audio/laugh.mp3");
 
 function init() {
   document.getElementById(`all-questions`).innerHTML = quizJson.length;
@@ -75,19 +79,31 @@ function init() {
 }
 
 function showQuestion() {
-  if (currentQuestion >= quizJson.length) {
-    document.getElementById(`card`).style = "display: none;";
-    document.getElementById(`end-container`).style = "";
+  if (gameOver()) {
+    showEndContainer();
   } else {
-    let question = quizJson[currentQuestion];
-    document.getElementById(`current-question`).innerHTML = currentQuestion + 1;
-    document.getElementById(`question`).innerHTML = question["question"];
-    document.getElementById(`answer_1`).innerHTML = question["answer_1"];
-    document.getElementById(`answer_2`).innerHTML = question["answer_2"];
-    document.getElementById(`answer_3`).innerHTML = question["answer_3"];
-    document.getElementById(`answer_4`).innerHTML = question["answer_4"];
+    showNextQuestion();
   }
   resetProgressBar();
+}
+
+function gameOver() {
+  return currentQuestion >= quizJson.length;
+}
+
+function showEndContainer() {
+  document.getElementById(`card`).style = "display: none;";
+  document.getElementById(`end-container`).style = "";
+}
+
+function showNextQuestion() {
+  let question = quizJson[currentQuestion];
+  document.getElementById(`current-question`).innerHTML = currentQuestion + 1;
+  document.getElementById(`question`).innerHTML = question["question"];
+
+  for (let i = 1; i < 5; i++) {
+    document.getElementById(`answer_${i}`).innerHTML = question[`answer_${i}`];
+  }
 }
 
 function answer(selection) {
@@ -95,16 +111,28 @@ function answer(selection) {
   let lastNumberOfSelection = selection.slice(-1);
   let rightAnswer = `answer_${question.right_answer}`;
 
-  if (lastNumberOfSelection == question["right_answer"]) {
-    document.getElementById(selection).parentNode.classList.add(`bg-success`);
-    document.getElementById(`audioPowerUp`).play();
-    rightAnswerCounter++;
+  if (rightAnswerSelected(lastNumberOfSelection, question)) {
+    colorizeRightAnswer(selection);
   } else {
-    document.getElementById(selection).parentNode.classList.add(`bg-danger`);
-    document.getElementById(rightAnswer).parentNode.classList.add(`bg-success`);
-    document.getElementById(`audioGameOver`).play();
+    colorizeWrongAnswer(selection, rightAnswer);
   }
   document.getElementById(`disable-btn`).disabled = false;
+}
+
+function rightAnswerSelected(lastNumberOfSelection, question) {
+  return lastNumberOfSelection == question["right_answer"];
+}
+
+function colorizeRightAnswer(selection) {
+  document.getElementById(selection).parentNode.classList.add(`bg-success`);
+  audioRight.play();
+  rightAnswerCounter++;
+}
+
+function colorizeWrongAnswer(selection, rightAnswer) {
+  document.getElementById(selection).parentNode.classList.add(`bg-danger`);
+  document.getElementById(rightAnswer).parentNode.classList.add(`bg-success`);
+  audioWrong.play();
 }
 
 function nextQuestion() {
@@ -121,14 +149,14 @@ function resetProgressBar() {
 }
 
 function resetAnswerButton() {
-  document.getElementById("answer_1").parentNode.classList.remove(`bg-success`);
-  document.getElementById("answer_1").parentNode.classList.remove(`bg-danger`);
-  document.getElementById("answer_2").parentNode.classList.remove(`bg-success`);
-  document.getElementById("answer_2").parentNode.classList.remove(`bg-danger`);
-  document.getElementById("answer_3").parentNode.classList.remove(`bg-success`);
-  document.getElementById("answer_3").parentNode.classList.remove(`bg-danger`);
-  document.getElementById("answer_4").parentNode.classList.remove(`bg-success`);
-  document.getElementById("answer_4").parentNode.classList.remove(`bg-danger`);
+  for (let i = 1; i < 5; i++) {
+    document
+      .getElementById(`answer_${i}`)
+      .parentNode.classList.remove(`bg-success`);
+    document
+      .getElementById(`answer_${i}`)
+      .parentNode.classList.remove(`bg-danger`);
+  }
 }
 
 function showScore() {
@@ -150,12 +178,12 @@ function greetings(totalScorePercent) {
       document.getElementById(
         `greetings`
       ).innerHTML = `Congratulations, you did it!`;
-      document.getElementById(`audioWin`).play();
+      audioWin.play();
       document.getElementById(`greetings`).classList.add(`text-success`);
     } else {
       document.getElementById(`greetings`).innerHTML = `You Lose!`;
       document.getElementById(`greetings`).classList.add(`text-danger`);
-      document.getElementById(`audioLaugh`).play();
+      audioLose.play();
     }
   }
 }

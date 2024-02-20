@@ -5,6 +5,7 @@ body {
     rgba(34, 193, 195, 1) 0%,
     rgba(73, 151, 226, 1) 100%
   );
+  font-family: "Alata" !important;
 }
 
 .container {
@@ -38,6 +39,7 @@ body {
 }
 .quiz-answer-card:hover {
   background-color: rgba(128, 128, 128, 0.2);
+  transition: background-color 250ms ease-in-out;
 }
 
 .bg-success,
@@ -67,11 +69,19 @@ body {
   outline: solid 5px;
   height: 100px;
   width: 100px;
-  border-radius: 100% !important;
   font-size: 30px;
   font-weight: bold;
 }
 
+.restart:hover {
+  border-radius: 50% !important;
+  transition: border-radius 350ms ease-in-out;
+}
+
 .scoreRating {
   font-size: 50px;
+}
+
+.quizImg {
+  border: 7px outset lightblue;
 }
